@@ -4,11 +4,9 @@
         private static string name = "Session Unlocker";
         private static int major = 1;
         private static int minor = 0;
-        private static int release = 0;
-        private static string revision = "17 October 2021";
+        private static int release = 1;
+        private static string revision = "18 October 2021";
 
-        public static string getVersionInfo() {
-            return name + " " + major + "." + minor + "." + release + " (revision " + revision + ")";
-        }
+        public static string Info => name + " " + major + "." + minor + "." + release + " (revision " + revision + ")";
     }
 }
