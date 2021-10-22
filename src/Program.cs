@@ -1,5 +1,4 @@
-﻿using session_unlocker.src.Gateway;
-using session_unlocker.src.Tasks;
+﻿using session_unlocker.src.Tasks;
 using System;
 using System.Linq;
 
@@ -12,7 +11,7 @@ namespace session_unlocker.src
             if (isVersionRequest()) {
                 Console.WriteLine(Version.Info);
             } else if (isLoginPresent(out string login)) {
-                Environment.Login = login;
+                RunningEnvironment.Login = login;
                 start();
             } else {
                 Console.WriteLine("Brak loginu. Parametr wymagany. Dodaj przełącznik -l lub -login z wartością.");
@@ -38,8 +37,8 @@ namespace session_unlocker.src
 
         public static void start() {
             Job job = new Job("xxx.xxx.xxx.xxx", 00, "bb", "hh");
-            IGateway gateway = new GatewayToLinux(job);
-            //gateway.close();
+            RunningObjects.jobs.Enqueue(job);
+            new JobConsument().start();
         } 
     }
 }
