@@ -1,17 +1,16 @@
-﻿using session_unlocker.src.Tasks;
+﻿using session_unlocker.src.Config;
+using session_unlocker.src.Tasks;
 using System;
 using System.Linq;
 
-namespace session_unlocker.src
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
+namespace session_unlocker.src {
+    class Program {
+        static void Main(string[] args) {
             if (isVersionRequest()) {
                 Console.WriteLine(Version.Info);
             } else if (isLoginPresent(out string login)) {
                 RunningEnvironment.Login = login;
+                AppConfigReader.readParameters("./settings/program.config"); 
                 start();
             } else {
                 Console.WriteLine("Brak loginu. Parametr wymagany. Dodaj przełącznik -l lub -login z wartością.");
