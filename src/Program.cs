@@ -10,7 +10,7 @@ namespace session_unlocker.src {
                 Console.WriteLine(Version.Info);
             } else if (isLoginPresent(out string login)) {
                 RunningEnvironment.Login = login;
-                AppConfigReader.readParameters("./settings/program.config"); 
+                AppConfigReader.ReadFile("./settings/program.config"); 
                 start();
             } else {
                 Console.WriteLine("Brak loginu. Parametr wymagany. Dodaj przełącznik -l lub -login z wartością.");
