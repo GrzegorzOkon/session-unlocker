@@ -3,6 +3,6 @@
     public interface IGateway {
         string ExecuteCommand();
 
-        void close();
+        void Close();
     }
 }

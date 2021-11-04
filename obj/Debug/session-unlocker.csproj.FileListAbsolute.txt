@@ -1,9 +1,0 @@
-C:\Users\grzeg\VisualStudioProjects\session-unlocker\bin\Debug\session-unlocker.exe.config
-C:\Users\grzeg\VisualStudioProjects\session-unlocker\bin\Debug\session-unlocker.exe
-C:\Users\grzeg\VisualStudioProjects\session-unlocker\bin\Debug\session-unlocker.pdb
-C:\Users\grzeg\VisualStudioProjects\session-unlocker\obj\Debug\session-unlocker.csproj.AssemblyReference.cache
-C:\Users\grzeg\VisualStudioProjects\session-unlocker\obj\Debug\session-unlocker.csproj.CoreCompileInputs.cache
-C:\Users\grzeg\VisualStudioProjects\session-unlocker\obj\Debug\session-unlocker.exe
-C:\Users\grzeg\VisualStudioProjects\session-unlocker\obj\Debug\session-unlocker.pdb
-C:\Users\grzeg\VisualStudioProjects\session-unlocker\bin\Debug\Renci.SshNet.dll
-C:\Users\grzeg\VisualStudioProjects\session-unlocker\bin\Debug\Renci.SshNet.xml

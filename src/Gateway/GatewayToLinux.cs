@@ -40,7 +40,7 @@ namespace session_unlocker.src.Gateway
             return null;
         }
 
-        public void close() {
+        public void Close() {
             //Connection.disconnect();
         }
     }

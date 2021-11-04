@@ -2,11 +2,11 @@
 {
     class Version
     {
-        private static string name = "Session Unlocker";
-        private static int major = 1;
-        private static int minor = 0;
-        private static int release = 5;
-        private static string revision = "29 October 2021";
+        private static readonly string name = "Session Unlocker";
+        private static readonly int major = 1;
+        private static readonly int minor = 0;
+        private static readonly int release = 6;
+        private static readonly string revision = "04 November 2021";
 
         public static string Info => name + " " + major + "." + minor + "." + release + " (revision " + revision + ")";
     }

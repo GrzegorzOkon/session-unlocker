@@ -11,7 +11,7 @@ namespace session_unlocker.src {
             } else if (isLoginPresent(out string login)) {
                 RunningEnvironment.Login = login;
                 AppConfigReader.ReadFile("./settings/program.config"); 
-                start();
+                Start();
             } else {
                 Console.WriteLine("Brak loginu. Parametr wymagany. Dodaj przełącznik -l lub -login z wartością.");
             }
@@ -34,10 +34,10 @@ namespace session_unlocker.src {
             }
         }
 
-        public static void start() {
+        public static void Start() {
             Job job = new Job("vvv.bbb.nnn.mmm", 55, "uuuu", "iiii");
             RunningObjects.jobs.Enqueue(job);
-            new JobConsument().start();
+            new JobConsument().Start();
         } 
     }
 }

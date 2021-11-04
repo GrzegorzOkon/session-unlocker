@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace session_unlocker.src.Config {
     public class AppConfigReader {
         public static IDictionary<string, string> ReadFile(string filepath) {
-            IDictionary<string, string> result = null;
+            IDictionary<string, string> result; ;
             try {
                 result = ReadParameters(filepath);
                 Validate(result);
@@ -47,7 +48,7 @@ namespace session_unlocker.src.Config {
         public static void ValidateServer(IDictionary<string, string> parameters) {
             if (parameters.TryGetValue("Server", out string ConnectionInfo)) {
                 foreach (string ci in ConnectionInfo.Split(';')) {
-                    if (IsIPAbsent(ci)) {
+                    if (IsIPAbsent(ci) || IsPortAbsent(ci) || IsLoginAbsent(ci) || IsPasswordAbsent(ci) || IsIPWrongFormat(ci)) {
                         Environment.Exit(101);
                     } 
                 }
@@ -58,6 +59,32 @@ namespace session_unlocker.src.Config {
             bool IsIPAbsent(string ConnInfo) {
                 if (ConnInfo.Contains(":") && ConnInfo.Substring(0, ConnInfo.IndexOf(":")).Length > 0) return false;
                 return true;
+            }
+
+            bool IsPortAbsent(string connInfo)
+            {
+                if (connInfo.Contains(":") && connInfo.Contains("[")
+                    && connInfo.Substring(connInfo.IndexOf(":") + 1, connInfo.IndexOf("[") - connInfo.IndexOf(":") - 1).Length > 0) return false;
+                return true;
+            }
+
+            bool IsLoginAbsent(string connInfo) {
+                if (connInfo.Contains("[") && connInfo.Contains(",")
+                    && connInfo.Substring(connInfo.IndexOf("[") + 1, connInfo.IndexOf(",") - connInfo.IndexOf("[") - 1).Length > 0) return false;
+                return true;
+            }
+
+            bool IsPasswordAbsent(string connInfo) {
+                if (connInfo.Contains(",") && connInfo.Contains("]")
+                    && connInfo.Substring(connInfo.IndexOf(",") + 1, connInfo.IndexOf("]") - connInfo.IndexOf(",") - 1).Length > 0) return false;
+                return true;
+            }
+
+            bool IsIPWrongFormat(string conInfo) {
+                Regex pattern = new Regex(@"\\d+\\.\\d+\\.\\d+\\.\\d+");
+                MatchCollection matches = pattern.Matches(conInfo.Substring(0, conInfo.IndexOf(":")));
+                if (matches.Count > 0) return false;
+                return true;     
             }
         }
     }

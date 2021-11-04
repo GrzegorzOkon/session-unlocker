@@ -2,10 +2,10 @@
 
 namespace session_unlocker.src {
     class JobConsument {
-        public void start() {
+        public void Start() {
             while (RunningObjects.jobs.Count > 0) {
                 Job job = RunningObjects.jobs.Dequeue();
-                new JobExecutor().checkServer(job);
+                new JobExecutor().CheckServer(job);
             }
         } 
     }
