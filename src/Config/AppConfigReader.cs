@@ -48,7 +48,8 @@ namespace session_unlocker.src.Config {
         public static void ValidateServer(IDictionary<string, string> parameters) {
             if (parameters.TryGetValue("Server", out string ConnectionInfo)) {
                 foreach (string ci in ConnectionInfo.Split(';')) {
-                    if (IsIPAbsent(ci) || IsPortAbsent(ci) || IsLoginAbsent(ci) || IsPasswordAbsent(ci) || IsIPWrongFormat(ci)) {
+                    if (IsIPAbsent(ci) || IsPortAbsent(ci) || IsLoginAbsent(ci) || IsPasswordAbsent(ci) || IsIPWrongFormat(ci)
+                        || IsPortWrongFormat(ci) || IsLoginWrongFormat(ci)) {
                         Environment.Exit(101);
                     } 
                 }
@@ -56,13 +57,12 @@ namespace session_unlocker.src.Config {
                 Environment.Exit(101);
             }
 
-            bool IsIPAbsent(string ConnInfo) {
-                if (ConnInfo.Contains(":") && ConnInfo.Substring(0, ConnInfo.IndexOf(":")).Length > 0) return false;
+            bool IsIPAbsent(string connInfo) {
+                if (connInfo.Contains(":") && connInfo.Substring(0, connInfo.IndexOf(":")).Length > 0) return false;
                 return true;
             }
 
-            bool IsPortAbsent(string connInfo)
-            {
+            bool IsPortAbsent(string connInfo) {
                 if (connInfo.Contains(":") && connInfo.Contains("[")
                     && connInfo.Substring(connInfo.IndexOf(":") + 1, connInfo.IndexOf("[") - connInfo.IndexOf(":") - 1).Length > 0) return false;
                 return true;
@@ -80,11 +80,25 @@ namespace session_unlocker.src.Config {
                 return true;
             }
 
-            bool IsIPWrongFormat(string conInfo) {
-                Regex pattern = new Regex(@"\\d+\\.\\d+\\.\\d+\\.\\d+");
-                MatchCollection matches = pattern.Matches(conInfo.Substring(0, conInfo.IndexOf(":")));
+            bool IsIPWrongFormat(string connInfo) {
+                Regex pattern = new Regex(@"\d+\.\d+\.\d+\.\d+");
+                MatchCollection matches = pattern.Matches(connInfo.Substring(0, connInfo.IndexOf(":")));
                 if (matches.Count > 0) return false;
                 return true;     
+            }
+
+            bool IsPortWrongFormat(string connInfo) {
+                Regex pattern = new Regex(@"\d+");
+                MatchCollection matches = pattern.Matches(connInfo.Substring(connInfo.IndexOf(":") + 1, connInfo.IndexOf("[") - connInfo.IndexOf(":") - 1));
+                if (matches.Count > 0) return false;
+                return true;
+            }
+
+            bool IsLoginWrongFormat(string connInfo) {
+                Regex pattern = new Regex(@"\w+");
+                MatchCollection matches = pattern.Matches(connInfo.Substring(connInfo.IndexOf("[") + 1, connInfo.IndexOf(",") - connInfo.IndexOf("[") - 1));
+                if (matches.Count > 0) return false;
+                return true;
             }
         }
     }
