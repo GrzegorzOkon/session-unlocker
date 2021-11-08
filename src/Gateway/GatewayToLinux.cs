@@ -23,9 +23,7 @@ namespace session_unlocker.src.Gateway
                 }
 
                 using (var client = new SshClient(connectionInfo)) {
-                    client.HostKeyReceived += delegate (object sender, HostKeyEventArgs e) {
-                        e.CanTrust = true;
-                    };
+                    client.HostKeyReceived += delegate (object sender, HostKeyEventArgs e) { e.CanTrust = true; };
                     client.Connect();
                     Console.WriteLine("Connected");
                     client.Disconnect();
